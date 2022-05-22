@@ -30,6 +30,7 @@ export async function create(id, content){
   //console.log(memberRepository.members);
 
   todos = [newTodo, ...todos];
+  // 새로운 todo가 생길 때마다 멤버의 todo list를 업데이트해줌!
   await memberRepository.updateMember(id);
   return newTodo;
   // 재귀적으로 멤버가 생성되는 것은 어떻게 해야 할까? -> deepcopy!

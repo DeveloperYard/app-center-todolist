@@ -5,7 +5,7 @@ let members = [];
 let membersId = 0;
 
 export async function getAll(){
-  members.forEach((member) => updateMember(member.id));
+  // members.forEach((member) => updateMember(member.id));
   return members;
 }
 
