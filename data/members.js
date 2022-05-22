@@ -5,6 +5,7 @@ let members = [];
 let membersId = 0;
 
 export async function getAll(){
+  members.forEach((member) => updateMember(member.id));
   return members;
 }
 
@@ -22,6 +23,7 @@ export async function updateMember(memberId){
 
 export async function getMember(id){
   const member = members.find((member)=>(id == member.id));
+  updateMember(member.id);
   if (member){
     return member
   }
@@ -56,5 +58,6 @@ export async function update(id, age, username){
 
 export async function remove(id){
   members =  members.filter((member) => id == member.id);
-
+  // db 설계할 때 cascading하게 설계하자!
+  // 외래 키인 member.id가 사라지면 해당 것과 연결된 todolist 삭제!
 }
