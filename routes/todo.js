@@ -3,8 +3,10 @@ import * as todoController from '../controller/todo.js';
 
 const router = express.Router();
 
+// 모든 todo 가져옴!
 router.get('/', todoController.getAllTodo);
-//todo 식별자 조회, todo + 회원정보 리턴
+
+//todo 식별자 조회, todo + 회원정보 리턴 
 router.get('/:id', todoController.getTodo);
 
 // todo 수정,  상태코드만 리턴!

@@ -45,12 +45,12 @@ export async function updateTodo(req, res){
   const todoId = req.params.id;
   const text = req.body;
 
-  const data = todoRepository.update(todoId, text);
+  const data = await todoRepository.update(todoId, text);
   if (data){
-    res.send(200).json(data);
+    res.status(200).json(data);
   }
   else{
-    res.send(404).json({message: `something went wrong!!`});
+    res.status(404).json({message: `something went wrong!!`});
   }
 }
 
@@ -58,10 +58,10 @@ export async function deleteTodo(req, res){
   const todoId = req.params.id;
 
   if(await todoRepository.remove(todoId)){
-    res.send(200).json({message: `success delete!`});
+    res.status(200).json({message: `success delete!`});
   }
   else{
-    res.send(404).json({message: `something went wrong!`});
+    res.status(404).json({message: `something went wrong!`});
   }
   
 }
