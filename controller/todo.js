@@ -32,7 +32,7 @@ export async function getTodo(req, res, next){
 
   const todo = todoRepository.getByTodoId(todoId);
   if (todo){
-    const memberInfo = await memberRepository.getMember(todo.member.id);
+    const memberInfo = await memberRepository.getMember(todo.member.todoId);
     res.status(200).json({member: memberInfo, todo: todo});
   }
   else{

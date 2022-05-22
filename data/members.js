@@ -43,6 +43,16 @@ export async function remove(id){
   await members.filter((member) => id == member.id);
 }
 
+export async function updateTodo(newTodo){
+  let todo = newTodo;
+  let member = members.find((member) => member.id === todo.member.id);
+
+  if (member){
+    // 정보가 들어가긴 하는데,, todoList가 삭제가 안됨!
+    member.todoList.filter(todo => (newTodo.todoId != todo.todoId));
+    member.todoList = [todo, ...member.todoList];
+  }
+}
 export async function addTodoToMembers(id, todo){
   let member = members.find((member) => id == member.id);
   member.todoList = [todo, ...member.todoList];

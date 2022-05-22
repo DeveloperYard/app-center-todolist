@@ -39,6 +39,7 @@ export async function getByTodoId(todoId){
   }
 }
 
+// update가 멤버에 반영이 되지 않고 있음!
 export async function update(todoId, content){
   let todo = todos.find((todo) => todoId == todo.todoId);
 
@@ -46,6 +47,7 @@ export async function update(todoId, content){
   copyTodo.content = content;
 
   copyTodo.updatedAt = new Date();
+  await memberRepository.updateTodo(copyTodo);
   todos.filter((todo) => todoId == todo.todoId);
   todos = [copyTodo, ...todos];
 
