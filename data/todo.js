@@ -1,6 +1,6 @@
 import * as memberRepository from './members.js';
 
-let todos = [];
+export let todos = [];
 let todoId = 0;
 
 export async function getAll(){
@@ -10,12 +10,17 @@ export async function getAll(){
 export async function create(id, content){
   let member = await memberRepository.getMember(id);
 
-  let copyMember = {id : member.id, email: member.email, age: member.age, username: member.username};
+  let copyMember = {
+    id : member.id, 
+    email: member.email, 
+    age: member.age, 
+    username: member.username
+  };
 
   let newTodo = {
     todoId: todoId++,
     content: content,
-    isComplete: true,
+    isComplete: false,
     createdAt: new Date(),
     updatedAt: new Date(),
     // 여기서 왜 깊은 복사가 안될까?
@@ -25,9 +30,9 @@ export async function create(id, content){
   //console.log(memberRepository.members);
 
   todos = [newTodo, ...todos];
-
-  return await memberRepository.addTodoToMembers(id, newTodo);
-  // 재귀적으로 멤버가 생성되는 것은 어떻게 해야 할까?
+  await memberRepository.updateMember(id);
+  return newTodo;
+  // 재귀적으로 멤버가 생성되는 것은 어떻게 해야 할까? -> deepcopy!
 }
 
 
@@ -39,22 +44,23 @@ export async function getByTodoId(todoId){
   }
 }
 
-// update가 멤버에 반영이 되지 않고 있음!
-export async function update(todoId, content){
-  let todo = todos.find((todo) => todoId == todo.todoId);
-
-  let copyTodo = {...todo};
-  copyTodo.content = content;
-
-  copyTodo.updatedAt = new Date();
-  await memberRepository.updateTodo(copyTodo);
-  todos.filter((todo) => todoId == todo.todoId);
-  todos = [copyTodo, ...todos];
-
-  return copyTodo;
+export async function update(todoId){
+  let todo = todos.find((todo) => todo.todoId == todoId);
+  if (!todo){
+    return;
+  }
+  todo.isComplete = true;
+  todo.updatedAt = new Date();
+  await memberRepository.updateMember(todo.member.id);
+  return todo;
 }
 
 export async function remove(todoId){
-  await todos.filter((todo)=> todoId == todo.id);
+  let todo = todos.find((todo) => (todo.todoId == todoId));
+  todos = todos.filter((todo)=> todoId != todo.todoId);
+
+  await memberRepository.updateMember(todo.member.id);
+
+  return todo;
 }
 
