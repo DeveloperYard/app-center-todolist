@@ -58,34 +58,3 @@ export async function remove(id){
   members =  members.filter((member) => id == member.id);
 
 }
-
-// export async function updateTodo(newTodo){
-//   let member = members.find((member) => member.id === newTodo.member.id);
-
-//   if (member){
-//     // 정보가 들어가긴 하는데,, todoList가 삭제가 안됨!
-//     let todo = member.todoList.find((todo) => (todo.todoId) === newTodo.todoId);
-//     todo.isComplete = true;
-//     todo.updatedAt = new Date();
-//     return todo;
-//   }
-// }
-
-// export async function deleteTodo(todoId){
-//   let member = members.find((member) => member.id == todoId);
-//   if (member){
-//     member.todoList = member.todoList.filter((todo) => (todo.todoId != todoId));
-//     return member;
-//   }
-//   else{
-//     return;
-//   }
-  
-// }
-
-// export async function addTodoToMembers(id, todo){
-//   let member = members.find((member) => id == member.id);
-//   member.todoList = [todo, ...member.todoList];
-
-//   return member;
-// }
