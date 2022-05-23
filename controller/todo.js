@@ -29,30 +29,23 @@ export async function createTodo(req, res, next){
 export async function getTodo(req, res, next){
   // todo + 회원정보 리턴
   const todoId = req.params.id;
-
-  const todo = todoRepository.getByTodoId(todoId);
+  const todo = await todoRepository.getByTodoId(todoId); // await을 이용하지 않으면 빈 프로미스가 반환되므로 오류가 남!
   if (todo){
-    const memberInfo = await memberRepository.getMember(todo.member.todoId);
-    res.status(200).json({member: memberInfo, todo: todo});
+    console.log(todo);
+    const memberInfo = await memberRepository.getMember(todo.member.id);
+    if (memberInfo){
+      res.status(200).json({member: memberInfo, todo: todo});
+    }
+    else{
+      res.status(404).json({message: `not fount member ${todo.member.id}!`});
+    }
   }
   else{
-    res.status(404).json({message: `something went wrong!`});
-  } 
+    // id에 해당하는 todo가 없을 때의 에러 처리
+    res.status(404).json({message: `todo id ${todoId} isn't existed!`});
+  }
 }
 
-// export async function updateTodo(req, res){
-//   // patch 방식으로 todo update;
-//   const todoId = req.params.id;
-//   const text = req.body;
-
-//   const data = await todoRepository.update(todoId, text);
-//   if (data){
-//     res.status(200).json(data);
-//   }
-//   else{
-//     res.status(404).json({message: `something went wrong!!`});
-//   }
-// }
 // 완료 여부만 변경!
 
 export async function updateTodo(req, res){
@@ -69,14 +62,24 @@ export async function updateTodo(req, res){
 }
 
 export async function deleteTodo(req, res){
+  // 이미 없는 경우에도 성공적 제거가 뜸!
   const todoId = req.params.id;
-  await todoRepository.remove(todoId)
-  
-  if (! await todoRepository.getByTodoId(todoId)){
-    res.status(200).json({message: `successfully deleted!`});
+  let todo = await todoRepository.getByTodoId(todoId);
+  // todo 가 있을 경우 수행
+  if (todo){
+    // await으로 제거 진행
+    await todoRepository.remove(todoId);
+    // todo가 가져와지지 않으면 성공적 수행!
+    if (! await todoRepository.getByTodoId(todoId)){
+      res.status(200).json({message: `successfully deleted!`});
+    }
+    // 제거했는데도 존재하면 무언가 문제가 있음
+    else{
+      res.status(404).json({message: `At todo delete processing.. something went wrong!`});
+    }
   }
+  // 이미 todo가 없을 때
   else{
-    res.status(404).json({message: `delete failed!`});
+    res.status(404).json({message: `not found that todo!`});
   }
-  
 }

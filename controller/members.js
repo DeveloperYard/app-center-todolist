@@ -8,7 +8,7 @@ export async function getMembers(req, res){
     res.status(200).json(members);
   }
   else {
-    res.status(404).json({message: 'something went wrong!!'});
+    res.status(404).json({message: 'no member in repository!!'});
   }
 }
 
@@ -33,7 +33,7 @@ export async function getMemberById(req, res){
     res.status(200).json(memberData);
   }
   else{
-    res.status(404).json({message: `not found todo of ${memberId} or ${memberId}!`});
+    res.status(404).json({message: `not found todo id ${memberId} or member id ${memberId}!`});
   }
 }
 

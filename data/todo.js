@@ -38,10 +38,13 @@ export async function create(id, content){
 
 
 export async function getByTodoId(todoId){
-  const todo = await todos.find((todo) => todoId == todo.todoId);
+  const todo = todos.find((todo) => todoId == todo.todoId);
 
   if (todo){
     return todo;
+  }
+  else{
+    return;
   }
 }
 
@@ -58,10 +61,13 @@ export async function update(todoId){
 
 export async function remove(todoId){
   let todo = todos.find((todo) => (todo.todoId == todoId));
-  todos = todos.filter((todo)=> todoId != todo.todoId);
-
-  await memberRepository.updateMember(todo.member.id);
-
-  return todo;
+  if (todo){
+    const deletedTodoMemberId = todo.member.id;
+    todos = todos.filter((todo)=> todoId != todo.todoId);
+    await memberRepository.updateMember(deletedTodoMemberId);
+  }
+  else{
+    return;
+  }
 }
 

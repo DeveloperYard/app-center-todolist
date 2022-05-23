@@ -5,8 +5,13 @@ let members = [];
 let membersId = 0;
 
 export async function getAll(){
-  // members.forEach((member) => updateMember(member.id));
-  return members;
+  // 멤버가 한 명이라도 있을 경우 리턴
+  // 멤버가 없을 때 빈 리스트를 반환하는 에러 디버깅 완료
+  if (members.length > 0) {
+    members.forEach((member)=>updateMember(member.id));
+    return members;
+  }
+  else return;
 }
 
 export async function updateMember(memberId){
