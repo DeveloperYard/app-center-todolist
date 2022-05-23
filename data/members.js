@@ -23,10 +23,10 @@ export async function updateMember(memberId){
 
 export async function getMember(id){
   const member = members.find((member)=>(id == member.id));
-  updateMember(member.id);
   if (member){
-    return member
+    return updateMember(member.id);
   }
+  else return;
 }
 
 export async function create(email, age, username){
@@ -45,6 +45,7 @@ export async function create(email, age, username){
 }
 
 export async function update(id, age, username){
+
   let member = members.find((member) => id == member.id);
   
   if (member){

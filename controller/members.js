@@ -38,15 +38,16 @@ export async function getMemberById(req, res){
 }
 
 export async function updateMember(req, res){
-  const curId = req.params.id;
-  const {age, username} = req.body;
+  const memberId = req.params.id;
+  // just changing age and username
+  const {age, username} = req.body; 
   // 만약 해당 멤버가 없다면 404 not found 전송!
-  const newInfo = await memberRepository.update(curId, age, username);
+  const newInfo = await memberRepository.update(memberId, age, username);
   if (newInfo){
     res.status(200).json(newInfo);
   }
   else{
-    res.status(404).json({message: `not found ${curId}!`});
+    res.status(404).json({message: `not found ${memberId}!`});
   }
   
 }
