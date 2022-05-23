@@ -37,7 +37,8 @@ export async function getTodo(req, res, next){
       res.status(200).json({member: memberInfo, todo: todo});
     }
     else{
-      res.status(404).json({message: `not fount member ${todo.member.id}!`});
+      // member를 찾을 수 없는 경우
+      res.status(404).json({message: `not found member ${todo.member.id}!`});
     }
   }
   else{
