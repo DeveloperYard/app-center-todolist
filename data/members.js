@@ -34,6 +34,16 @@ export async function getMember(id){
   else return;
 }
 
+// 동일한 이메일이 있는지 확인하기 위해 사용됨!
+export async function findSameEmail(email){
+  const member = members.find((member)=>(member.email == email));
+  if(member){
+    return member;
+  }
+  else{
+    return;
+  }
+}
 export async function create(email, age, username){
   let newMember = {
     id: membersId++,

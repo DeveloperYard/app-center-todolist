@@ -14,12 +14,19 @@ export async function getMembers(req, res){
 
 export async function createMember(req, res){
   const {email, age, name} = req.body;
-  const member = await memberRepository.create(email, age, name);
-  if (member){
-    res.status(200).json(member);
+  const duplicateEmailMember = await memberRepository.findSameEmail(email);
+  if (duplicateEmailMember) {
+    // 중복된 이메일이 존재할 경우 이 에러 처리에 의해 걸리게 됨
+    res.status(400).json({message: `aleady existed email!! plz use different email`});
   }
-  else{
-    res.status(404).json({message: `something went wrong!`});
+  else  {
+      const member = await memberRepository.create(email, age, name);
+      if (member){
+        res.status(200).json(member);
+      }
+      else{
+        res.status(404).json({message: `something went wrong!`});
+      }
   }
 }
 
