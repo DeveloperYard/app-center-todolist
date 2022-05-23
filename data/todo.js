@@ -66,8 +66,6 @@ export async function remove(todoId){
     todos = todos.filter((todo)=> todoId != todo.todoId);
     await memberRepository.updateMember(deletedTodoMemberId);
   }
-  else{
-    return;
-  }
+  else return;
 }
 

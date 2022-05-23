@@ -19,9 +19,9 @@ app.use('/todos', todoRouter);
 // 에러 처리를 위한 미들웨어
 app.use((req, res, next)=>{
   res.sendStatus(404);
-})
+});
 
 // 3000번 포트에서 서버를 열고, 서버가 열리면 콘솔에 로그를 띄워 알려줌
 app.listen(3000, ()=>{
   console.log('server on *:3000');
-})
+});

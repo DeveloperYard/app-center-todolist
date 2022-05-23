@@ -21,13 +21,12 @@ export async function updateMember(memberId){
     member.todoList = todoRepository.todos.filter((todo) => (todo.member.id === member.id));
     return member;
   }
-  else{
-    return;
-  }
+  else return;
+  
 }
 
 export async function getMember(id){
-  const member = members.find((member)=>(id == member.id));
+  const member = members.find((member) => (id == member.id));
   if (member){
     return updateMember(member.id);
   }
@@ -36,13 +35,11 @@ export async function getMember(id){
 
 // 동일한 이메일이 있는지 확인하기 위해 사용됨!
 export async function findSameEmail(email){
-  const member = members.find((member)=>(member.email == email));
+  const member = members.find((member) => (member.email == email));
   if(member){
     return member;
   }
-  else{
-    return;
-  }
+  else return;
 }
 export async function create(email, age, username){
   let newMember = {
