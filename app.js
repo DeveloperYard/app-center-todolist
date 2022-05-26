@@ -3,20 +3,18 @@ import morgan from 'morgan';
 import todoRouter from './routes/todo.js';
 import memberRouter from './routes/members.js';
 import path from 'path';
-import { fileURLToPath } from 'url';
 // express를 사용하기 위한 할당!
 const app = express();
 
 // morgan -> 테스트할 때 상태코드와 응답 처리 속도를 보기 위해 사용
 app.use(morgan('dev'));
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.resolve();
 
 // req.body를 JSON 형식으로 파싱하기 위해 필요!
 app.use(express.json());
 app.get('/', (req, res)=>{
-  res.sendFile(__dirname + 'hihello.html');
+  res.sendFile(__dirname + '/hihello.html');
 })
 // 라우터 두 가지를 놓고 각 접근 uri마다의 라우팅 분기!
 app.use('/members', memberRouter);
