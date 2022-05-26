@@ -5,9 +5,7 @@ import * as todoController from '../controller/todo.js';
 const router = express.Router();
 
 // 모든 멤버의 정보를 가져옴
-router.get('/', memberController.getMembers, ()=>{
-  res.sendFile('index.html');
-});
+router.get('/', memberController.getMembers);
 
 // 회원 생성 -> return status code
 router.post('/', memberController.createMember);

@@ -14,7 +14,7 @@ const __dirname = path.resolve();
 // req.body를 JSON 형식으로 파싱하기 위해 필요!
 app.use(express.json());
 app.get('/', (req, res)=>{
-  res.sendFile(__dirname+'hihello.html');
+  res.sendFile('hihello.html');
 })
 // 라우터 두 가지를 놓고 각 접근 uri마다의 라우팅 분기!
 app.use('/members', memberRouter);
