@@ -1,5 +1,5 @@
-import express from 'express';
-import * as todoController from '../controller/todo.js';
+const express = require('express');
+const todoController = require('../controller/todo.js');
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.patch('/:id', todoController.updateTodo);
 router.delete('/:id', todoController.deleteTodo);
 
 // app.js에서 사용할 수 있도록 함!
-export default router;
+module.exports = router;

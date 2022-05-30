@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>create todo</title>
+  </head>
+  <body>
+    <h1>정보를 입력하시오.</h1>
+    <form action="/members/:id/todos" method="POST">
+      <table>
+        <tr>
+          <td><input type="text" name="content" placeholder="entered content"></td>
+        </tr>
+      </table>
+      <input type="submit" value="send"/>
+    </form>
+
+    <form action="/" method="GET">
+      <button type="submit">홈으로!</button>
+    </form>
+  </body>
+</html>

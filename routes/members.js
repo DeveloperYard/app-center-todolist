@@ -1,6 +1,6 @@
-import express from 'express';
-import * as memberController from '../controller/members.js';
-import * as todoController from '../controller/todo.js';
+const express = require('express');
+const memberController = require('../controller/members.js');
+const todoController = require('../controller/todo.js');
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.patch('/:id', memberController.updateMember);
 // 해당 멤버에게 투두리스트 추가 -> return status code
 router.post('/:id/todos', todoController.createTodo);
 
-export default router;
+module.exports = router;

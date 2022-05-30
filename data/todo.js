@@ -1,13 +1,13 @@
-import * as memberRepository from './members.js';
+const memberRepository = require('./members.js');
 
-export let todos = [];
+let todos = [];
 let todoId = 0;
 
-export async function getAll(){
+async function getAll(){
   return todos;
 }
 
-export async function create(id, content){
+async function create(id, content){
   let member = await memberRepository.getMember(id);
 
   let copyMember = {
@@ -37,7 +37,7 @@ export async function create(id, content){
 }
 
 
-export async function getByTodoId(todoId){
+async function getByTodoId(todoId){
   const todo = todos.find((todo) => todoId == todo.todoId);
 
   if (todo){
@@ -48,7 +48,7 @@ export async function getByTodoId(todoId){
   }
 }
 
-export async function update(todoId){
+async function update(todoId){
   let todo = todos.find((todo) => todo.todoId == todoId);
   if (!todo){
     return;
@@ -59,7 +59,7 @@ export async function update(todoId){
   return todo;
 }
 
-export async function remove(todoId){
+async function remove(todoId){
   let todo = todos.find((todo) => (todo.todoId == todoId));
   if (todo){
     const deletedTodoMemberId = todo.member.id;
@@ -69,3 +69,8 @@ export async function remove(todoId){
   else return;
 }
 
+exports.getAll = getAll;
+exports.create = create;
+exports.getByTodoId = getByTodoId;
+exports.update = update;
+exports.remove = remove;
