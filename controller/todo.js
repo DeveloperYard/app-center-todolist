@@ -5,7 +5,7 @@ const Todo = require('../models/Todo.js');
 
 
 async function getAllTodo(req, res, next){
-  const todolist = await Todo.findAll();
+  const todo = await Todo.findAll();
   if(todo){
     res.status(200).json(todo);
   }
