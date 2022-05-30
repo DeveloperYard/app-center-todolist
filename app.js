@@ -2,7 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const todoRouter = require('./routes/todo.js');
 const memberRouter = require('./routes/members.js');
-const path = require('path');
 // express를 사용하기 위한 할당!
 const app = express();
 

@@ -3,6 +3,7 @@ const express = require('express');
 const Member = require('../models/Members.js');
 const Todo = require('../models/Todo.js');
 
+
 async function getAllTodo(req, res, next){
   const todolist = await Todo.findAll();
   if(todo){
@@ -12,6 +13,7 @@ async function getAllTodo(req, res, next){
     res.status(404).json({message: `don't have any todo`});
   }
 }
+
 
 async function createTodo(req, res, next){
   const memberId = req.params.id;
@@ -31,6 +33,7 @@ async function createTodo(req, res, next){
   }
 }
 
+
 async function getTodo(req, res, next){
   // todo + 회원정보 리턴
   const todoId = req.params.id;
@@ -45,8 +48,8 @@ async function getTodo(req, res, next){
   }
 }
 
-// 완료 여부만 변경!
 
+// 완료 여부만 변경!
 async function updateTodo(req, res){
   const todoId = req.params.id;
 
@@ -60,6 +63,7 @@ async function updateTodo(req, res){
   }
 }
 
+
 async function deleteTodo(req, res){
   let todoId = req.params.id;
 
@@ -72,6 +76,7 @@ async function deleteTodo(req, res){
     res.status(404).json({message: 'not found todo!!'});
   }
 }
+
 
 exports.getAllTodo = getAllTodo;
 exports.createTodo = createTodo;

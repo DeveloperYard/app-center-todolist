@@ -14,6 +14,7 @@ async function getMembers(req, res){
   }
 }
 
+
 async function createMember(req, res){
   const {email, age, name} = req.body;
   console.log(email, age, name);
@@ -43,7 +44,7 @@ async function getMemberById(req, res){
   }
   // todo 포함해서 넘겨줘야 함!!
   let todos = await Todo.findAll({where: {foreingKey: id}}); // Todo 가져오는 것 다시 구현해야함!
-
+  // todo가 없다면? -> 근데 이렇게 처리하면 안될 것 같은게 promise가 비어있다면?
   if (!todos){
     res.status(404).json({message: `this user weren't wrting todo`});
   }
@@ -66,6 +67,7 @@ async function updateMember(req, res){
     res.status(404).json({message: `not found ${memberId}!`});
   }
 }
+
 
 exports.getMembers = getMembers;
 exports.createMember = createMember;
