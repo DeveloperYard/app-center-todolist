@@ -11,6 +11,7 @@ app.use(morgan('dev'));
 
 // req.body를 JSON 형식으로 파싱하기 위해 필요!
 app.use(express.json());
+
 // app.get('/', (req, res)=>{
 //   res.sendFile(__dirname + '/hihello.html');
 // })

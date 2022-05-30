@@ -3,7 +3,6 @@ const memberController = require('../controller/members.js');
 const todoController = require('../controller/todo.js');
 
 const router = express.Router();
-
 // 모든 멤버의 정보를 가져옴
 router.get('/', memberController.getMembers);
 
