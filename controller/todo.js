@@ -16,21 +16,23 @@ async function getAllTodo(req, res, next){
 
 
 async function createTodo(req, res, next){
-  const memberId = req.params.id;
-  const content = req.body;
+  
+  try{
+    const memberId = req.params.id;
+    const content = req.body.content;
+    const memberData = await Member.findAll({where: {id: memberId}});
+    if (memberData){
+      const todo = await Todo.create({
+        content: content,
+        isComplete: req.body.isComplete,
+        member: memberId
+      })
+    res.status(200).json({message: 'create todo success!!', todo: todo});
+    }
+  } catch(err){
+    console.log(`create todo error : ` + err);
+  }
 
-  const memberData = await Member.findAll({where: {id: memberId}});
-  if (memberData){
-    await Todo.create({
-      content: content,
-      isComplete: false,
-      member: memberData
-    })
-    res.status(200).json(resultInfo);
-  }
-  else{
-    res.status(404).json({message: `${memberId} is not found!`});
-  }
 }
 
 
@@ -40,7 +42,7 @@ async function getTodo(req, res, next){
   const todo = await Todo.findAll({where: {id: todoId}});
 
   if (todo){
-    const mem = await Member.findAll({where: {id: todo.member.id}});
+    const mem = await Member.findAll({where: {id: todo.member}});
     res.status(200).json({member: mem, todo: todo});
   }
   else{

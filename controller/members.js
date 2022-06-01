@@ -1,12 +1,11 @@
-const express = require('express');
-
+const { findAll } = require('../models/Members.js');
 const Member = require('../models/Members.js');
 const Todo = require('../models/Todo.js');
 
 
 async function getMembers(req, res){
   const memberList = await Member.findAll();
-  if(memberList.length > 0){
+  if (memberList){
     res.status(200).json(memberList);
   }
   else{
@@ -16,20 +15,27 @@ async function getMembers(req, res){
 
 
 async function createMember(req, res){
-  const {email, age, name} = req.body;
-  console.log(email, age, name);
-  let dupMember = await Member.findOne({where: {email: email}})
-  
-  if (Object.keys(dupMember).length > 0){
-    res.status(201).json({message: 'duplicated email!'});  
-  }
-  else{
-    let newMember = await Member.create({
-      email: email,
-      age: age,
-      name: name,
-    })
-    res.status(200).json({message: 'success!', member: newMember});
+  try{
+    const {email, age, name} = req.body;
+    console.log(email, age, name);
+    const dupUser = await Member.findAll({where: {email : email}});
+    
+    if (!dupUser){
+      await Member.create({
+        email: email,
+        age: age,
+        name: name,
+        });
+        res.status(200).json({message: 'success create user!'});
+      }
+      else{
+        res.status(201).json({message: 'already existed email!'});
+      }
+    }
+    
+    
+  catch(err){
+    console.log('createMember err! : ', +err);
   }
 }
 
@@ -43,7 +49,7 @@ async function getMemberById(req, res){
     res.status(404).json({message: `not found ${memberId} user`});
   }
   // todo 포함해서 넘겨줘야 함!!
-  let todos = await Todo.findAll({where: {foreingKey: id}}); // Todo 가져오는 것 다시 구현해야함!
+  let todos = await Todo.findAll({where: {member: findMember.id}}); // Todo 가져오는 것 다시 구현해야함!
   // todo가 없다면? -> 근데 이렇게 처리하면 안될 것 같은게 promise가 비어있다면?
   if (!todos){
     res.status(404).json({message: `this user weren't wrting todo`});

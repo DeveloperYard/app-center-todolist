@@ -9,7 +9,8 @@ module.exports = class Todo extends Sequelize.Model {
       },
       isCompleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: false
       }
     }, {
       sequelize,
