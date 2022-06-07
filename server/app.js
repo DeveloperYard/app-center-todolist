@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const todoRouter = require('./routes/todo.js');
 const memberRouter = require('./routes/members.js');
 const {sequelize} = require('./models');
@@ -19,10 +20,6 @@ app.use(morgan('dev'));
 
 // req.body를 JSON 형식으로 파싱하기 위해 필요!
 app.use(express.json());
-
-// app.get('/', (req, res)=>{
-//   res.sendFile(__dirname + '/hihello.html');
-// })
 // 라우터 두 가지를 놓고 각 접근 uri마다의 라우팅 분기!
 app.use('/members', memberRouter);
 app.use('/todos', todoRouter);
