@@ -26,7 +26,7 @@ module.exports = class Todo extends Sequelize.Model {
 
   static associate(db) {
     // Todo는 Member에 속해있음 (Member의 target key는 id)
-    db.Todo.belongsTo(db.Member, { foreignKey: 'id', targetKey: 'id' });
+    db.Todo.belongsTo(db.Member, { foreignKey: 'id', targetKey: 'id'});
   }
 }
 

@@ -18,7 +18,7 @@ async function createMember(req, res){
   try{
     const {email, age, name} = req.body;
     console.log(email, age, name);
-    const dupUser = await Member.findAll({where: {email : email}});
+    const dupUser = await Member.findOne({where: {email : email}});
     
     if (!dupUser){
       await Member.create({
