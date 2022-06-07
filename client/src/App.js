@@ -1,21 +1,16 @@
+import React, { Component } from 'react';
+import { UserManage } from './components/UserManage';
+import { Main } from './components/main';
 import './App.css';
-import TodoListTemplate from './components/TodoListTemplate';
-import UserListTemplate from './components/UserListTemplate';
 
-function App() {
-  // const name = 'react';
-  // const style = {
-  //   backgroundColor: 'black',
-  //   color: 'aqua',
-  //   fontSize: 24, // 기본 단위 px
-  //   padding: '1rem' // 다른 단위 사용 시 문자열로 설정
-  // }
-  return (
+class App extends Component{
+  render(){
+    return (
     <>
-      <UserListTemplate/>
-      <TodoListTemplate/>
+      <Main/>
+      <UserManage/>
     </>
-  );
+  )}
 }
 
 export default App;

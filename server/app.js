@@ -4,6 +4,7 @@ const cors = require('cors');
 const todoRouter = require('./routes/todo.js');
 const memberRouter = require('./routes/members.js');
 const {sequelize} = require('./models');
+
 // express를 사용하기 위한 할당!
 const app = express();
 
@@ -17,7 +18,7 @@ sequelize.sync({ force: false })
 
 // morgan -> 테스트할 때 상태코드와 응답 처리 속도를 보기 위해 사용
 app.use(morgan('dev'));
-
+app.use(cors());
 // req.body를 JSON 형식으로 파싱하기 위해 필요!
 app.use(express.json());
 // 라우터 두 가지를 놓고 각 접근 uri마다의 라우팅 분기!
