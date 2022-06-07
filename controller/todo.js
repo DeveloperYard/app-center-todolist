@@ -51,8 +51,9 @@ async function getTodo(req, res, next){
   const todoId = req.params.id;
   console.log(todoId);
   const todo = await Todo.findOne({include:{model:Member, where: {id: todoId}}});
+  console.log(todo);
   if (todo){
-    const mem = await Member.findAll({where: {id: todo[0].member}}); // index access
+    const mem = await Member.findAll({where: {id: todo.member}}); // index access
     res.status(200).json({member: mem, todo: todo});
   }
   else{

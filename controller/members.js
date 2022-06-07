@@ -63,10 +63,10 @@ async function updateMember(req, res){
   const memberId = req.params.id;
   // just changing age and username
   const {age, username} = req.body; 
-  const newInfo = await Member.findAll({where: {id: id}});
+  const newInfo = await Member.findAll({where: {id: memberId}});
 
   if (newInfo){
-    Member.update({age: age, name: username}, {where: {id: id}});
+    Member.update({age: age, name: username}, {where: {id: memberId}});
     res.status(200).json({message: 'success!!'});
   }
   else{
