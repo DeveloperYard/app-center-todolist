@@ -26,7 +26,7 @@ export const UserManage = async ()=>{
   
   return(
     <>
-    <form className="write">
+    <form className="write" action="/members" method="POST">
       <input className="todo_input" type="text" name="email" required />
       <input className="todo_input" type="text" name="age" required />
       <input className="todo_input" type="text" name="name" required />
